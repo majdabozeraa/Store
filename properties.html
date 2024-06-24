@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>العقارات</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            direction: rtl;
+        }
+
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #propertyImage {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>العقارات</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>المدينة</th>
+                <th>التفاصيل</th>
+                <th>الإيجار الشهري</th>
+                <th>إظهار التفاصيل</th>
+                <th>اختيار</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>دمشق</td>
+                <td>شقة غرفة وصالة مساحة 70 م</td>
+                <td>500000 ل.س</td>
+                <td><button onclick="showDetails(1)">إظهار التفاصيل</button></td>
+                <td><input type="radio" name="property" value="1"></td>
+            </tr>
+            <tr>
+                <td>دمشق</td>
+                <td>شقة غرفة وصالة مساحة 70 م</td>
+                <td>500000 ل.س</td>
+                 <td><button onclick="showDetails(1)">إظهار التفاصيل</button></td>
+                <td><input type="radio" name="property" value="1"></td>
+            </tr>
+            <tr>
+                <td>حلب</td>
+                                <td>شقة غرفتين وصالة مساحة 100 م</td>
+                                <td>700000 ل.س</td>
+                                <td><button onclick="showDetails(2)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="2"></td>
+            </tr>
+
+            <tr>
+                                <td>حماة</td>
+                                <td>منزل طابقين مع حديقة مساحة 150 م</td>
+                                <td>800000 ل.س</td>
+                                <td><button onclick="showDetails(3)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="3"></td>
+            </tr>
+
+            <tr>
+                                <td>اللاذقية</td>
+                                <td>شقة ثلاث غرف وصالة مساحة 120 م</td>
+                                <td>600000 ل.س</td>
+                                <td><button onclick="showDetails(4)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="4"></td>
+            </tr>
+
+            <tr>
+                                <td>القامشلي</td>
+                                <td>فيلا كبيرة مع حديقة مساحة 300 م</td>
+                                <td>1200000 ل.س</td>
+                                <td><button onclick="showDetails(5)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="5"></td>
+            </tr>
+
+                        <tr>
+                                <td>درعا</td>
+                                <td>شقة صغيرة مفروشة مساحة 50 م</td>
+                                <td>400000 ل.س</td>
+                                <td><button onclick="showDetails(6)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="6"></td>
+            </tr>
+
+            <tr>
+                                <td>الحسكة</td>
+                                <td>مكتب تجاري مع مستودع مساحة 80 م</td>
+                                <td>550000 ل.س</td>
+                                <td><button onclick="showDetails(7)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="7"></td>
+            </tr>
+
+            <tr>
+                                <td>السويداء</td>
+                                <td>شقة مطلة على المدينة مساحة 90 م</td>
+                                <td>650000 ل.س</td>
+                                <td><button onclick="showDetails(8)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="8"></td>
+            </tr>
+
+            <tr>
+                                <td>الرقة</td>
+                                <td>شقة في الطابق العلوي مع شرفة مساحة 80 م</td>
+                                <td>600000 ل.س</td>
+                                <td><button onclick="showDetails(10)">إظهار التفاصيل</button></td>
+                                <td><input type="radio" name="property" value="10"></td>
+            </tr>
+
+        </tbody>
+    </table>
+    <button id="showFormButton" onclick="showForm()">متابعة</button>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">تفاصيل العقار</h2>
+            <div id="modalBody">
+                <img id="propertyImage" src="" alt="صورة العقار">
+                <p><strong>المنطقة:</strong> <span id="propertyArea"></span></p>
+                <p><strong>الطابق:</strong> <span id="propertyFloor"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="myForm" style="display: none;">
+        <form id="propertyForm" action="/submit" method="post">
+            <input type="hidden" name="propertyId" id="propertyId">
+            <label for="fullName">الاسم الكامل:</label>
+            <input type="text" id="fullName" name="fullName" required>
+            <br>
+            <label for="nationalId">الرقم الوطني:</label>
+            <input type="text" id="nationalId" name="nationalId" pattern="[0-9]{11}" required>
+            <br>
+            <label for="birthdate">تاريخ الولادة مثال: 10-10-2002 :</label>
+            <input type="text" id="birthdate" name="birthdate" pattern="\d{2}-\d{2}-\d{4}" required>
+            <br>
+            <label for="mobileNumber">رقم الموبايل:</label>
+            <input type="tel" id="mobileNumber" name="mobileNumber">
+            <br>
+            <label for="email">البريد الإلكتروني:</label>
+            <input type="email" id="email" name="email">
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+            <br>
+            <!-- لم اقم باضافة مفتاح -->
+            <button type="submit">إرسال</button>
+        </form>
+
+        <!-- رسالة النجاح -->
+        <div id="successMessage" style="display: none;">
+            تمت عملية الإرسال بنجاح! تم اختيار العقار:
+            <span id="selectedProperty"></span>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="home.html">الصفحة الرئيسية</a></li>
+            <li><a href="Aboutus.html">من نحن</a></li>
+            <li><a href="Properties.html">العقارات</a></li>
+        </ul>
+    </nav>
+
+    <script src="myFunctions.js"></script>
+    <script>
+        function showForm() {
+            var form = document.getElementById('myForm');
+            form.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
